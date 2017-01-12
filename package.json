@@ -1,0 +1,22 @@
+{
+  "name": "opentaskmanager",
+  "version": "1.0.0",
+  "description": "Open Task Manager is a open code M.E.A.N application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "node server"
+  },
+  "author": "Renan Lopes",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express-load": "*",
+    "express": "^4.14.0",
+    "mongoose": "^4.7.1",
+    "jsonwebtoken": "^7.2.1"
+  },
+  "engines":{
+    "node": "6.3.1"
+  }
+}

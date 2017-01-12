@@ -1,0 +1,112 @@
+<!-- View Content -->
+<!-- Lista de tarefas em progresso -->
+<!-- List of tasks in progress -->
+
+<navbar></navbar>
+<section ng-controller="TaskController" class="container-fluid">
+  <hr>
+  <span class="position-button">
+    <button class="btn btn-primary btn-just-icon fixed-button hidden-md hidden-sm hidden-lg" data-toggle="modal" data-target="#newTaskModal">
+      <i class="material-icons">add</i>
+    </button>
+  </span>
+  <div class="modal fade" id="newTaskModal" tabindex="-1" role="dialog" aria-labelledby="newTaskModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h5 class="modal-title" id="myModalLabel">New Task</h5>
+        </div>
+        <div class="modal-body">
+          <div class="md-form input-group">
+            <span class="input-group-addon">
+              <i class="material-icons">turned_in</i>
+            </span>
+            <input id="taskTitle" type="text" class="form-control" name="title" ng-model="newTask.title" placeholder="Título">
+          </div>
+          <div class="md-form input-group">
+            <span class="input-group-addon">
+              <i class="material-icons">subject</i>
+            </span>
+            <input id="taskDescription" type="text" class="form-control" name="description" ng-model="newTask.description" placeholder="Descrição">
+          </div>
+          <div class="md-form input-group">
+            <span class="input-group-addon">
+              <i class="material-icons">date_range</i>
+            </span>
+            <input class="form-control" type="date" ng-model="newTask.taskDate"/>
+            <input class="form-control" type="time" ng-model="newTask.taskDate"/>
+          </div>
+          <hr>
+          <div class="text-right">
+            <button data-dismiss="modal" class="btn btn-warning btn-just-icon"><i class="material-icons">not_interested</i></button>
+            <button data-dismiss="modal" ng-click="createTask(newTask)" class="btn btn-success btn-just-icon"><i class="material-icons">playlist_add</i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row padding-top">
+    <div class="col-md-4 col-lg-3 col-xs-12 col-sm-6">
+      <div class="md-form input-group">
+        <span class="input-group-addon">
+          <i class="material-icons text-blue">search</i>
+        </span>
+        <input id="search" ng-model="search" class="form-control" type="text" name="search" autocomplete="off" placeholder="Search">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div ng-repeat="task in tasks |  filter:search | orderBy: '-_id'" ng-if="task.progress == 'progress'">
+      <div class="row hidden-sm hidden-md hidden-lg">
+        <br>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="card hoverable container-fluid ox-card-list {{task.dateCompare <= date && 'card-danger'}} {{task.dateCompareDay <= dateDay && 'card-alert'}}">
+          <div class="card-block">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+              <label class="label label-info" ng-hide="task.active == 'true'">Date: {{task.taskDate}}</label>
+            </div>
+            <label ng-show="task.active == 'true'"><br>Title</label>
+            <h4 class="card-title" ng-hide="task.active == 'true'">{{task.title}}</h4>
+            <div class="animate-show md-form" ng-show="task.active == 'true'">
+              <input id="taskDescriptionUpdate" class="" type="text" name="titleUpdate" ng-model="task.title" value="{{task.title}}">
+            </div>
+            <p ng-hide="task.active == 'true'">{{task.description}}</p>
+            <label class="input-group" ng-show="task.active == 'true'">Description</label>
+            <div ng-show="task.active == 'true'">
+              <input id="taskDescriptionUpdate" class="md-form" type="text" name="descriptionUpdate" value="{{task.description}}" ng-model="task.description">
+            </div>
+            <label class="input-group" ng-show="task.active == 'true'">
+              Date
+            </label>
+            <div ng-show="task.active == 'true'">
+              <input id="taskDateUpdate" class="md-form" type="text" name="taskDateUpdate" value="{{task.taskDate}}" ng-model="task.taskDate">
+            </div>
+
+            <button title="Delete" class="btn btn-danger btn-just-icon" ng-click="removeTask(task)">
+              <i class="material-icons">delete</i>
+            </button>
+
+            <button title="Edit" class="btn btn-primary btn-just-icon" ng-show="task.active != 'true'" ng-click="taskActive(task,'true')">
+              <i class="material-icons">mode_edit</i>
+            </button>
+
+            <button title="Cancel" ng-show="task.active == 'true'" ng-click="taskActive(task,'false')" class="btn btn-warning btn-just-icon"><i class="material-icons">not_interested</i></button>
+
+            <button title="Save" ng-show="task.active == 'true'" ng-click="saveTask(task)" class="btn btn-primary btn-just-icon"><i class="material-icons">save</i></button>
+
+            <button title="Done" ng-show="task.active == 'false'" ng-click="taskProgress(task,'done')" class="btn btn-success btn-just-icon">
+              <i class="material-icons">done</i>
+            </button>
+          </div>            
+          <br>
+        </div>
+        <div class="row hidden-sm hidden-md hidden-lg">
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

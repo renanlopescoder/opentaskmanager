@@ -1,0 +1,61 @@
+<!-- View Content -->
+<!-- Lista de tarefas feitas -->
+<!-- List of tasks done -->
+
+<navbar></navbar>
+<section ng-controller="TaskController">
+  <hr>
+  <div class="row padding-top">
+    <div class="col-md-4 col-lg-3 col-xs-12 col-sm-6">
+      <div class="md-form input-group">
+        <span class="input-group-addon">
+          <i class="material-icons">search</i>
+        </span>
+        <input id="search" ng-model="search" class="form-control" type="text" name="search" autocomplete="off" placeholder="Pesquisa">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div ng-repeat="task in tasks |  filter:search | orderBy: 'updatedStatusDate'" ng-if="task.progress == 'done'">
+      <div class="row hidden-sm hidden-md hidden-lg">
+        <br>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="card hoverable container-fluid ox-card-list card-complete">
+          <div class="card-block">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+              <label class="label label-info">Date: {{task.taskDate}}</label>
+            </div>
+            <label ng-show="task.active == 'true'"><br>Titulo</label>
+            <h4 class="card-title" ng-hide="task.active == 'true'">{{task.title}}</h4>
+            <div class="animate-show md-form" ng-show="task.active == 'true'">
+              <input id="taskDescriptionUpdate" class="" type="text" name="titleUpdate" ng-model="saveTask.title" value="{{task.title}}">
+            </div>
+            <p ng-hide="task.active == 'true'">{{task.description}}</p>
+            <label class="input-group" ng-show="task.active == 'true'">Descrição</label>
+            <div class="animate-show md-form" ng-show="task.active == 'true'">
+              <textarea id="taskDescriptionUpdate" class="md-textarea" type="text" name="descriptionUpdate" ng-model="saveTask.description">{{task.description}}</textarea>
+            </div>
+            <button class="btn btn-danger btn-just-icon" ng-click="removeTask(task)">
+              <i class="material-icons">delete</i>
+            </button>
+
+            <button ng-show="task.active == 'true'" ng-click="taskActive(task,'false')" class="btn btn-warning btn-just-icon"><i class="material-icons">not_interested</i></button>
+
+            <button ng-show="task.active == 'true'" ng-click="saveTask(task)" class="btn btn-primary btn-just-icon"><i class="material-icons">save</i></button>
+
+            <button ng-click="taskProgress(task,'progress')" class="btn btn-warning btn-just-icon">
+              <i class="material-icons">settings_backup_restore</i>
+            </button>
+            <br>
+            <label class="text-right">{{task.updatedStatusDate}}</label>
+          </div>
+          <br>
+        </div>
+        <div class="row hidden-sm hidden-md hidden-lg">
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

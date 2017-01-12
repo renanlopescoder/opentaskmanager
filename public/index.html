@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="taskApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <meta name="author" content="Renan Lopes">
+    <title>Open Task Manager</title>
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/mdb.css" rel="stylesheet">
+    <link href="assets/css/material-kit.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <section>
+      <div id="page-content-wrapper">
+        <div ng-view class="view-animate"></div>
+      </div>
+    </section>
+    <footer class="page-footer text-center blue darken-4 hidden-sm hidden-md hidden-lg">
+      <a href="#about" role="tab" data-toggle="tab">
+        © 2017 Copyright: Renan Lopes
+      </a>
+    </footer>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/tether.js"></script>
+    <script src="assets/js/mdb.js"></script>
+    <script src="assets/js/nouislider.min.js"></script>
+    <script src="assets/js/angular.min.js" charset="utf-8"></script>
+    <script src="assets/js/angular-route.min.js" charset="utf-8"></script>
+    <script src="assets/js/material.min.js"></script>
+    <script src="js/services/services.js" charset="utf-8"></script>
+    <script src="js/main.js" charset="utf-8"></script>
+    <script src="js/controllers/TaskController.js" charset="utf-8"></script>
+    <script src="js/controllers/UserController.js" charset="utf-8"></script>
+    <script src="js/directives/directives.js" charset="utf-8"></script>
+    <script>
+      $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+      });
+      $('#newTaskModal').on('shown.bs.modal', function () {
+        $('#taskTitle').focus();
+      });
+    </script>
+  </body>
+</html>
