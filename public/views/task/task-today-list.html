@@ -1,7 +1,8 @@
 <!-- View Content -->
 <!-- Lista de tarefas em progresso -->
 <!-- List of tasks in progress -->
-<navbar></navbar>
+
+
 <section ng-controller="TaskController">
   <hr>
   <span class="position-button">
@@ -68,14 +69,20 @@
               <label class="label label-info" ng-hide="task.active == 'true'">Date: {{task.taskDate}}</label>
             </div>
             <label ng-show="task.active == 'true'"><br>Title</label>
-            <h4 class="card-title" ng-hide="task.active == 'true'">{{task.title}}</h4>
+            <h4 class="card-title" ng-hide="task.active == 'true'" ng-if="task.open == 'false' && task.title.length > 25|| (task.title.length > 25 && task.open == null)">{{task.title.slice(0,25)}} ...</h4>
+            <h4 class="card-title" ng-hide="task.active == 'true'" ng-if="task.open == 'false' && task.title.length < 25 ||task.open == 'true' || (task.title.length < 25 && task.open == null)">{{task.title}}</h4>
             <div class="animate-show md-form" ng-show="task.active == 'true'">
-              <input id="taskDescriptionUpdate" class="" type="text" name="titleUpdate" ng-model="task.title" value="{{task.title}}">
+              <input id="taskDescriptionUpdate" type="text" name="titleUpdate" ng-model="task.title" value="{{task.title}}">
             </div>
-            <p ng-hide="task.active == 'true'">{{task.description}}</p>
+            <p ng-hide="task.active == 'true'" ng-if="task.open == 'false' && task.description.length > 30 || (task.description.length > 30 && task.open == null)">
+              {{task.description.slice(0,30)}} ...
+            </p>
+            <p ng-hide="task.active == 'true'" ng-if="task.open == 'false' && task.description.length < 30 || task.open == 'true' || (task.description.length < 30 && task.open == null)">
+              {{task.description}}
+            </p>
             <label class="input-group" ng-show="task.active == 'true'">Description</label>
             <div ng-show="task.active == 'true'">
-              <input id="taskDescriptionUpdate" class="md-form" type="text" name="descriptionUpdate" value="{{task.description}}" ng-model="task.description">
+              <textarea id="taskDescriptionUpdate" class="md-textarea" type="text" name="descriptionUpdate" ng-model="task.description">{{task.description}}</textarea>
             </div>
             <label class="input-group" ng-show="task.active == 'true'">
               Date
@@ -98,6 +105,12 @@
 
             <button title="Done" ng-show="task.active == 'false'" ng-click="taskProgress(task,'done')" class="btn btn-success btn-just-icon">
               <i class="material-icons">done</i>
+            </button>
+            <button title="Visibility" ng-show="task.active == 'false' && (task.open == 'false' || task.open == null)" ng-click="task.open='true'" class="btn btn-info btn-just-icon">
+              <i class="material-icons">visibility</i>
+            </button>
+            <button title="Visibility Off" ng-show="task.active == 'false' && task.open == 'true'" ng-click="task.open='false'" class="btn btn-info btn-just-icon">
+              <i class="material-icons">visibility_off</i>
             </button>
           </div>            
           <br>

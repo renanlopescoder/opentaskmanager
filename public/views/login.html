@@ -1,6 +1,9 @@
-  <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Open+Sans:600'>
+	<link rel="stylesheet" href="css/login.css">
+	<link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Open+Sans:600'>
   <div class="login-wrap">
 	<div class="login-html">
+		<h1 class="title">Open Task Manager</h1>
+		<br>
 		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
 		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
 		<div class="login-form">
@@ -13,13 +16,14 @@
 					<label for="pass">Password</label>
 					<input id="pass" type="password" class="input" data-type="password" ng-model="user.password">
 				</div>
-				<!--<div class="group">
-					<input id="check" type="checkbox" class="check" checked>
-					<label for="check"><span class="icon"></span> Keep me Signed in</label>
-				</div>-->
 				<div class="group">
 					<input ng-click="autenticar(user)" type="button" class="button" value="Sign In">
 				</div>
+				<label class="container">
+					<a href="http://renanlopes.com">
+						© 2017 Copyright: Renan Lopes
+					</a>
+				</label>
 			</div>
 			<div class="sign-up-htm">
 					<div class="group">
@@ -41,6 +45,11 @@
 					<div class="group">
 						<input type="button" ng-click="createUser(newUser)" class="button" value="Sign Up">
 					</div>
+					<label class="container">
+						<a href="http://renanlopes.com">
+							© 2017 Copyright: Renan Lopes
+						</a>
+					</label>
 			</div>
 		</div>
 	</div>
