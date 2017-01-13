@@ -2,15 +2,15 @@
 <!-- Lista de tarefas feitas -->
 <!-- List of tasks done -->
 
-<section ng-controller="TaskController">
+<section ng-controller="TaskController" class="container-fluid">
   <hr>
   <div class="row padding-top">
     <div class="col-md-4 col-lg-3 col-xs-12 col-sm-6">
-      <div class="md-form input-group">
+      <div class="md-form input-group search-input">
         <span class="input-group-addon">
-          <i class="material-icons">search</i>
+          <i class="material-icons text-white">search</i>
         </span>
-        <input id="search" ng-model="search" class="form-control" type="text" name="search" autocomplete="off" placeholder="Search">
+        <input id="search" ng-model="search" class="form-control text-white" type="text" name="search" autocomplete="off" placeholder="Search">
       </div>
     </div>
   </div>
@@ -61,10 +61,6 @@
             <br>
             <label class="text-right">{{task.updatedStatusDate}}</label>
           </div>
-          <br>
-        </div>
-        <div class="row hidden-sm hidden-md hidden-lg">
-          <br>
         </div>
       </div>
     </div>
