@@ -1,31 +1,43 @@
-module.exports = function(app) {
   var mongoose =  require('mongoose');
+    
+  //--> Segurança
+  //--> Security
 
+  //--> Bcrypt para criptografar a senha do usuário
+  //--> Bcrypt to encrypt user's password
+
+  var bcrypt = require('bcrypt');
+  const saltRounds = 15;
+  
+  //--> Autenticação por Token
+  //--> Token Authentication
   var jwt = require('jsonwebtoken');
+
+  module.exports = function(app) {
+
   var api = {};
-
-
   var model = mongoose.model('User');
 
-  api.autentica = function(req,res){
+  api.login = function(req,res){
     console.log(req.body.username);
     console.log(req.body.password);
-
-    model.findOne({username: req.body.username, password: req.body.password})
+    
+    model.findOne({username: req.body.username})
     .then(function(user){
-      if (!user) {
-        console.log('username password Inválidos');
-        res.sendStatus(401);
-      } else {
-        var token = jwt.sign({user:user.username}, app.get('secret'),{
-          expiresIn: '1440'
-        });
-        console.log('Token criado e sendo enviado no header http');
-        
-        return res.status(200).json({nome: user.username, token: token, user_id: user._id});
-      }
+      bcrypt.compare(req.body.password, user.password).then(function(result){
+        if(result == true){
+          var token = jwt.sign({user:user.username}, app.get('secret'),{
+            expiresIn: 84600
+          });
+          console.log('Token criado e sendo enviado no header http');
+          return res.status(200).json({nome: user.username, token: token, user_id: user._id});
+        }
+      }, function(error){
+        console.log('Error, password incorreto para o usuário ' + user.username);
+        res.sendStatus(401);        
+      });
     },function(error){
-      console.log('username password Inválidos');
+      console.log('Error, usuário inexistente');
       res.sendStatus(401);
     })
 
@@ -33,12 +45,15 @@ module.exports = function(app) {
 
 
   api.createUser = function(req,res){
-    model.create(req.body).then(function(user){
+    bcrypt.hash(req.body.password, saltRounds, function(err,hash){
+      req.body.password = hash;
+      model.create(req.body).then(function(user){
       res.json(user);
     }, function(error){
         console.log(error);
         res.status(404).json(error);
       });
+    });
   };
 
 

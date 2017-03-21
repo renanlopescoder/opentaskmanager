@@ -2,11 +2,11 @@ taskApp.controller('UserController', function($scope, $http, auth) {
   $scope.user = {};
   $scope.newUser = {};
 
-  $scope.autenticar = function(){
+  $scope.login = function(){
     var user = $scope.user;
     console.log(user);
     //Usando Promisse
-      $http.post('/autenticar', {username: user.username, password: user.password})
+      $http.post('/login', {username: user.username, password: user.password})
       .then(function(response){
         if(response.status == 200){
           window.localStorage.setItem('user', JSON.stringify(response.data));

@@ -10,11 +10,12 @@
   "author": "Renan Lopes",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.15.2",
-    "express-load": "*",
     "express": "^4.14.0",
-    "mongoose": "^4.7.1",
-    "jsonwebtoken": "^7.2.1"
+    "express-load": "*",
+    "jsonwebtoken": "^7.2.1",
+    "mongoose": "^4.7.1"
   },
   "engines": {
     "node": "6.3.1"
