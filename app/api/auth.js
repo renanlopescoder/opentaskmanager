@@ -37,19 +37,18 @@
             });
             // console.log('Token criado e sendo enviado no header http');
             return res.status(200).json({nome: user.username, token: token, user_id: user._id});
-        }
-      }, 
-      (error) => {
-        console.log('Error, password incorreto para o usuário ' + user.username);
-        res.sendStatus(401);        
-      });
-    },
+          }
+        }, 
+        (error) => {
+          console.log('Error, password incorreto para o usuário ' + user.username);
+          res.sendStatus(401);        
+        });
+      },
       (error) => {
         console.log('Error, usuário inexistente');
         res.sendStatus(401);
-    })
-
-  };
+      })
+    };
 
 
   api.createUser = (req,res) => {

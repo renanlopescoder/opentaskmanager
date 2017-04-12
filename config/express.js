@@ -3,8 +3,11 @@ var bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.json());
 var load = require('express-load');
+var cors = require('cors');
 
 //Configurações do Express
+
+app.use(cors({origin: '*'}));
 
 //Midleware Static
 	app.set('secret', 'opensecret');
